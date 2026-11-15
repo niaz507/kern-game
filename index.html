@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kern · Niazur Rahman</title>
+  <meta name="description" content="Kern, a typography game by Niazur Rahman. Ten words arrive badly spaced. Set the letters by eye, then see them against the studio's optical fit.">
+  <meta name="author" content="Niazur Rahman">
+  <meta name="theme-color" id="themeColor" content="#F3EDE2">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Besley:wght@700&family=Schibsted+Grotesk:wght@400;500;600;700&family=Sono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600&family=Bodoni+Moda:opsz,wght@6..96,700&family=Newsreader:opsz,wght@6..72,600&family=Unbounded:wght@700&family=Cormorant+Garamond:wght@600&family=Big+Shoulders+Display:wght@700&family=Literata:opsz,wght@7..72,700&family=Familjen+Grotesk:wght@600&family=Gloock&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      var theme = "light";
+      try {
+        var saved = localStorage.getItem("niaz-kern-theme");
+        if (saved === "light" || saved === "dark") theme = saved;
+        else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+      var meta = document.getElementById("themeColor");
+      if (meta) meta.setAttribute("content", theme === "dark" ? "#14110E" : "#F3EDE2");
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="logo" href="https://www.niazur.me">Niazur<span>.</span></a>
+      <p class="nav-current">Kern</p>
+      <button type="button" class="theme-btn" id="themeToggle" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <noscript>
+      <p class="noscript">JavaScript is off, so the letters cannot be set.</p>
+    </noscript>
+
+    <div class="intro">
+      <p class="label">Typography game</p>
+      <h1>Set the space the <span class="accent">eye</span> trusts.</h1>
+      <p class="tagline">Ten words arrive with the letters out of rhythm. Nudge them until the spacing looks inevitable, then lock the line. The studio setting is read from the shape of the ink, not from equal gaps.</p>
+    </div>
+
+    <div class="stage">
+      <section class="panel board" aria-labelledby="round-title">
+        <div id="play-view">
+          <div class="board-top">
+            <div>
+              <p class="label" id="phase-label">Round</p>
+              <h2 id="round-title">Setting the type</h2>
+            </div>
+            <p class="sheet-count" id="round-count" aria-hidden="true">01</p>
+          </div>
+          <p class="specimen" id="specimen">Besley</p>
+          <p class="board-note" id="note">The faces are loading.</p>
+
+          <div class="stick" id="stick">
+            <div class="baseline" aria-hidden="true"></div>
+            <div class="ghosts" id="ghosts" hidden></div>
+            <div class="letters" id="letters" role="group" aria-describedby="key-help"></div>
+          </div>
+          <p class="compare-caption" id="caption" hidden>Ink is yours. Red is the studio setting.</p>
+
+          <div class="nudge" id="nudge" role="group" aria-label="Nudge the selected letter">
+            <button type="button" class="key key-quiet nudge-btn" id="tighter">Tighter</button>
+            <button type="button" class="key key-quiet nudge-btn" id="looser">Looser</button>
+          </div>
+          <div class="actions">
+            <button type="button" class="text-btn" id="reset">Reset word</button>
+            <button type="button" class="key key-eq set-btn" id="commit" disabled>Set word</button>
+          </div>
+          <p class="keyhint" id="key-help">Drag a letter · arrows nudge it · shift for more · enter sets</p>
+        </div>
+
+        <div id="final-view" hidden>
+          <p class="label">Proof</p>
+          <h2 id="rank">Compositor</h2>
+          <p class="value" id="total">0</p>
+          <p class="total-of" id="total-of">out of 1000</p>
+          <div class="share">
+            <p id="share-line">Kern 0/1000 · Open case</p>
+            <div class="share-actions">
+              <button type="button" class="key key-quiet copy-btn" id="copy">Copy</button>
+              <button type="button" class="key key-quiet copy-btn" id="share" hidden>Share</button>
+            </div>
+          </div>
+          <p class="best-line" id="best-line"></p>
+          <button type="button" class="key key-eq set-btn again-btn" id="again">Play again</button>
+        </div>
+
+        <p class="sr-only" id="live" aria-live="polite"></p>
+      </section>
+
+      <section class="panel sheet" aria-labelledby="sheet-title">
+        <div class="sheet-top">
+          <div>
+            <p class="label">Session</p>
+            <h2 id="sheet-title">Proof sheet</h2>
+          </div>
+          <p class="sheet-count" id="sheetCount">00</p>
+        </div>
+        <p class="sheet-note" id="sheet-note">Finished words stay here, with the fit beside each one.</p>
+        <div class="tape-wrap">
+          <p class="sheet-empty" id="sheetEmpty">Nothing pinned yet. Set a word and the line will sit here.</p>
+          <ol class="tape" id="tape"></ol>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <a href="https://www.niazur.me">Designed by Niazur Rahman</a>
+      <p class="small">Vancouver, BC</p>
+    </div>
+  </footer>
+
+  <script src="kern.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
