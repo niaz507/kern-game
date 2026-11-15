@@ -1,0 +1,8 @@
+{
+  "name": "kern-game",
+  "private": true,
+  "description": "Kern, a typography game by Niazur Rahman.",
+  "scripts": {
+    "test": "node test/kern.test.js"
+  }
+}
